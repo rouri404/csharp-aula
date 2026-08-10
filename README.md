@@ -9,8 +9,8 @@ Este repositório contém o material e os exemplos de código desenvolvidos dura
 Abaixo estão listadas as aulas disponíveis. Acesse os links para visualizar o conteúdo de cada respectiva branch.
 
 <!-- AULAS START -->
-- [Aula 1](https://github.com/rouri404/csharp-aulas/tree/aula1)
-- [Aula 2](https://github.com/rouri404/csharp-aulas/tree/aula2)
+- [Aula 1](https://github.com/rouri404/csharp-aula/tree/aula1)
+- [Aula 2](https://github.com/rouri404/csharp-aula/tree/aula2)
 <!-- AULAS END -->
 
 ---
@@ -24,7 +24,3 @@ Abaixo estão listadas as aulas disponíveis. Acesse os links para visualizar o 
 ```bash
 git clone https://github.com/rouri404/csharp-aulas.git
 ```
-
-## Tecnologias Utilizadas
-
-- .NET / C#
