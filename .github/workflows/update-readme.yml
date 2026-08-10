@@ -1,0 +1,76 @@
+name: Aulas no README
+
+on:
+  create:
+  push:
+    branches:
+      - 'aula*'
+  workflow_dispatch:
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
+jobs:
+  update-readme:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'create' || (github.event_name == 'push' && startsWith(github.ref_name, 'aula'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "cotomation[bot]"
+          git config user.email "cotomation[bot]@users.noreply.github.com"
+
+      - name: Update README.md
+        run: |
+          (
+            git ls-remote --heads origin "refs/heads/aula*" | sed 's#^.*refs/heads/##'
+            if [ -n "$GITHUB_REF_NAME" ]; then
+              echo "$GITHUB_REF_NAME"
+            fi
+          ) | grep -E '^aula[0-9]+$' | sort -u -V | while read -r branch; do
+            num="${branch#aula}"
+            repo="${GITHUB_REPOSITORY:-rouri404/csharp-aula}"
+            echo "- [Aula ${num}](https://github.com/${repo}/tree/${branch})"
+          done > aulas.tmp
+
+          awk '
+            /<!-- AULAS START -->/ {
+              print
+              while ((getline line < "aulas.tmp") > 0) {
+                print line
+              }
+              close("aulas.tmp")
+              in_block = 1
+              next
+            }
+            /<!-- AULAS END -->/ {
+              in_block = 0
+            }
+            !in_block { print }
+          ' README.md > README.tmp && mv README.tmp README.md
+          rm -f aulas.tmp
+
+      - name: Commit and push if changed
+        run: |
+          git add README.md
+          if ! git diff --cached --quiet; then
+            num="${GITHUB_REF_NAME#aula}"
+            git commit -m "feat: aula ${num}"
+            git pull --rebase origin main
+            git push origin main
+          fi
