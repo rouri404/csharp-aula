@@ -11,6 +11,7 @@ Abaixo estão listadas as aulas disponíveis. Acesse os links para visualizar o 
 <!-- AULAS START -->
 - [Aula 1](https://github.com/rouri404/csharp-aula/tree/aula1)
 - [Aula 2](https://github.com/rouri404/csharp-aula/tree/aula2)
+- [Aula 3](https://github.com/rouri404/csharp-aula/tree/aula3)
 <!-- AULAS END -->
 
 ---
