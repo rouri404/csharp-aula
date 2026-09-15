@@ -13,6 +13,7 @@ Abaixo estão listadas as aulas disponíveis. Acesse os links para visualizar o 
 - [Aula 2](https://github.com/rouri404/csharp-aula/tree/aula2)
 - [Aula 3](https://github.com/rouri404/csharp-aula/tree/aula3)
 - [Aula 4](https://github.com/rouri404/csharp-aula/tree/aula4)
+- **[CP 2 - Prova](https://github.com/rouri404/csharp-aula/tree/cp2)**
 <!-- AULAS END -->
 
 ---
